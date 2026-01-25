@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase'
 import type { User } from '@supabase/supabase-js'
@@ -47,55 +48,48 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-      <nav className="max-w-6xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <Link
-            href="/"
-            className="text-2xl font-bold text-gray-900 no-underline hover:text-blue-600"
-          >
-            SilverGen
+    <header className="header">
+      <div className="container">
+        <div className="header-inner">
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="SilverGen"
+              width={280}
+              height={100}
+              priority
+              unoptimized
+              className="header-logo"
+            />
           </Link>
 
-          <div className="flex items-center gap-4 flex-wrap">
+          <nav className="header-nav">
             {loading ? (
-              <span className="text-gray-500">Carregando...</span>
+              <span className="text-secondary text-sm">Carregando...</span>
             ) : user ? (
               <>
-                <Link
-                  href="/cadastrar"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg no-underline hover:bg-blue-700 font-medium"
-                >
+                <Link href="/cadastrar" className="btn btn-primary btn-sm">
                   Cadastrar Empresa
                 </Link>
 
                 {perfil?.is_admin && (
-                  <Link
-                    href="/admin"
-                    className="px-4 py-2 bg-gray-800 text-white rounded-lg no-underline hover:bg-gray-900 font-medium"
-                  >
+                  <Link href="/admin" className="btn btn-secondary btn-sm">
                     Admin
                   </Link>
                 )}
 
-                <button
-                  onClick={handleLogout}
-                  className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 font-medium"
-                >
+                <button onClick={handleLogout} className="btn btn-secondary btn-sm">
                   Sair
                 </button>
               </>
             ) : (
-              <Link
-                href="/login"
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg no-underline hover:bg-blue-700 font-medium"
-              >
+              <Link href="/login" className="btn btn-primary">
                 Entrar
               </Link>
             )}
-          </div>
+          </nav>
         </div>
-      </nav>
+      </div>
     </header>
   )
 }

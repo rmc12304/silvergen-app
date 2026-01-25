@@ -59,9 +59,9 @@ export default function AdminEmpresasList() {
 
   function getStatusBadge(status: StatusEmpresa) {
     const styles = {
-      pendente: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      aprovado: 'bg-green-100 text-green-800 border-green-200',
-      rejeitado: 'bg-red-100 text-red-800 border-red-200',
+      pendente: 'bg-amber-100 text-amber-800 border-amber-300',
+      aprovado: 'bg-green-100 text-green-800 border-green-300',
+      rejeitado: 'bg-red-100 text-red-800 border-red-300',
     }
 
     const labels = {
@@ -71,51 +71,54 @@ export default function AdminEmpresasList() {
     }
 
     return (
-      <span className={`px-3 py-1 rounded-full text-sm font-medium border ${styles[status]}`}>
+      <span className={`px-3 py-1 rounded-full text-small font-bold border-2 ${styles[status]}`}>
         {labels[status]}
       </span>
     )
   }
 
+  const filterButtonBase = "px-4 py-2 rounded-[var(--border-radius-md)] font-bold transition-colors"
+  const filterButtonInactive = "bg-[var(--color-bg-surface)] text-[var(--color-text-secondary)] border-2 border-[var(--color-border)] hover:border-[var(--color-text-secondary)]"
+
   return (
     <div>
-      <div className="mb-6 flex gap-2 flex-wrap">
+      <div className="mb-6 flex gap-3 flex-wrap">
         <button
           onClick={() => setFilter('pendente')}
-          className={`px-4 py-2 rounded-lg font-medium ${
+          className={`${filterButtonBase} ${
             filter === 'pendente'
-              ? 'bg-yellow-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-amber-500 text-white border-2 border-amber-500'
+              : filterButtonInactive
           }`}
         >
           Pendentes
         </button>
         <button
           onClick={() => setFilter('aprovado')}
-          className={`px-4 py-2 rounded-lg font-medium ${
+          className={`${filterButtonBase} ${
             filter === 'aprovado'
-              ? 'bg-green-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-green-600 text-white border-2 border-green-600'
+              : filterButtonInactive
           }`}
         >
           Aprovados
         </button>
         <button
           onClick={() => setFilter('rejeitado')}
-          className={`px-4 py-2 rounded-lg font-medium ${
+          className={`${filterButtonBase} ${
             filter === 'rejeitado'
-              ? 'bg-red-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-red-600 text-white border-2 border-red-600'
+              : filterButtonInactive
           }`}
         >
           Rejeitados
         </button>
         <button
           onClick={() => setFilter('todos')}
-          className={`px-4 py-2 rounded-lg font-medium ${
+          className={`${filterButtonBase} ${
             filter === 'todos'
-              ? 'bg-gray-800 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-[var(--color-text-main)] text-white border-2 border-[var(--color-text-main)]'
+              : filterButtonInactive
           }`}
         >
           Todos
@@ -123,56 +126,50 @@ export default function AdminEmpresasList() {
       </div>
 
       {loading ? (
-        <p className="text-gray-500 py-8 text-center">Carregando...</p>
+        <p className="text-secondary py-8 text-center">Carregando...</p>
       ) : empresas.length === 0 ? (
-        <p className="text-gray-500 py-8 text-center">
+        <p className="text-secondary py-8 text-center">
           Nenhuma empresa encontrada com o filtro selecionado.
         </p>
       ) : (
         <div className="space-y-4">
           {empresas.map((empresa) => (
-            <article
-              key={empresa.id}
-              className="bg-white border border-gray-200 rounded-lg p-6"
-            >
+            <article key={empresa.id} className="card">
               <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">
-                    {empresa.nome}
-                  </h2>
-                  <p className="text-gray-600">
+                  <h3 className="mb-1">{empresa.nome}</h3>
+                  <p className="text-secondary text-small">
                     {empresa.cidade}, {empresa.estado}
                   </p>
                 </div>
                 {getStatusBadge(empresa.status)}
               </div>
 
-              <p className="text-gray-700 mb-4">{empresa.descricao}</p>
+              <p className="mb-4">{empresa.descricao}</p>
 
               {empresa.site && (
-                <p className="text-sm text-gray-500 mb-4">
+                <p className="text-small text-secondary mb-4">
                   Site:{' '}
                   <a
                     href={empresa.site.startsWith('http') ? empresa.site : `https://${empresa.site}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-800"
                   >
                     {empresa.site}
                   </a>
                 </p>
               )}
 
-              <p className="text-sm text-gray-500 mb-4">
+              <p className="text-small text-secondary mb-4">
                 Cadastrado em: {new Date(empresa.criado_em).toLocaleDateString('pt-BR')}
               </p>
 
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-3 flex-wrap">
                 {empresa.status !== 'aprovado' && (
                   <button
                     onClick={() => updateStatus(empresa.id, 'aprovado')}
                     disabled={actionLoading === empresa.id}
-                    className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50"
+                    className="px-4 py-2 bg-green-600 text-white rounded-[var(--border-radius-md)] font-bold hover:bg-green-700 disabled:opacity-50 transition-colors"
                   >
                     {actionLoading === empresa.id ? 'Aguarde...' : 'Aprovar'}
                   </button>
@@ -182,7 +179,7 @@ export default function AdminEmpresasList() {
                   <button
                     onClick={() => updateStatus(empresa.id, 'rejeitado')}
                     disabled={actionLoading === empresa.id}
-                    className="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 disabled:opacity-50"
+                    className="px-4 py-2 bg-red-600 text-white rounded-[var(--border-radius-md)] font-bold hover:bg-red-700 disabled:opacity-50 transition-colors"
                   >
                     {actionLoading === empresa.id ? 'Aguarde...' : 'Rejeitar'}
                   </button>
@@ -192,7 +189,7 @@ export default function AdminEmpresasList() {
                   <button
                     onClick={() => updateStatus(empresa.id, 'pendente')}
                     disabled={actionLoading === empresa.id}
-                    className="px-4 py-2 bg-yellow-600 text-white rounded-lg font-medium hover:bg-yellow-700 disabled:opacity-50"
+                    className="px-4 py-2 bg-amber-500 text-white rounded-[var(--border-radius-md)] font-bold hover:bg-amber-600 disabled:opacity-50 transition-colors"
                   >
                     {actionLoading === empresa.id ? 'Aguarde...' : 'Voltar para Pendente'}
                   </button>

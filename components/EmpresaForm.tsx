@@ -66,9 +66,9 @@ export default function EmpresaForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-xl">
-      <div>
-        <label htmlFor="nome" className="block font-medium mb-2">
+    <form onSubmit={handleSubmit} className="card" style={{ maxWidth: '600px' }}>
+      <div className="form-group">
+        <label htmlFor="nome" className="form-label">
           Nome da Empresa *
         </label>
         <input
@@ -78,13 +78,13 @@ export default function EmpresaForm() {
           value={formData.nome}
           onChange={handleChange}
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Ex: Empresa XYZ"
+          className="form-input"
         />
       </div>
 
-      <div>
-        <label htmlFor="site" className="block font-medium mb-2">
+      <div className="form-group">
+        <label htmlFor="site" className="form-label">
           Site da Empresa (opcional)
         </label>
         <input
@@ -93,13 +93,13 @@ export default function EmpresaForm() {
           type="url"
           value={formData.site}
           onChange={handleChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           placeholder="https://www.empresa.com.br"
+          className="form-input"
         />
       </div>
 
-      <div>
-        <label htmlFor="descricao" className="block font-medium mb-2">
+      <div className="form-group">
+        <label htmlFor="descricao" className="form-label">
           Descrição *
         </label>
         <textarea
@@ -109,14 +109,15 @@ export default function EmpresaForm() {
           onChange={handleChange}
           required
           rows={4}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-y"
           placeholder="Descreva as oportunidades oferecidas para profissionais 40+"
+          className="form-input"
+          style={{ resize: 'vertical' }}
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="cidade" className="block font-medium mb-2">
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="form-group">
+          <label htmlFor="cidade" className="form-label">
             Cidade *
           </label>
           <input
@@ -126,13 +127,13 @@ export default function EmpresaForm() {
             value={formData.cidade}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="Ex: São Paulo"
+            className="form-input"
           />
         </div>
 
-        <div>
-          <label htmlFor="estado" className="block font-medium mb-2">
+        <div className="form-group">
+          <label htmlFor="estado" className="form-label">
             Estado *
           </label>
           <select
@@ -141,7 +142,7 @@ export default function EmpresaForm() {
             value={formData.estado}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
+            className="form-input"
           >
             <option value="">Selecione...</option>
             {ESTADOS_BR.map((uf) => (
@@ -154,21 +155,17 @@ export default function EmpresaForm() {
       </div>
 
       {error && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+        <div className="alert alert-error">
           {error}
         </div>
       )}
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-yellow-800">
+      <div className="alert alert-warning">
         <strong>Importante:</strong> Seu cadastro será analisado por um
         administrador antes de ser publicado.
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium text-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
+      <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%' }}>
         {loading ? 'Cadastrando...' : 'Cadastrar Empresa'}
       </button>
     </form>

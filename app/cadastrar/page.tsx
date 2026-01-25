@@ -8,16 +8,16 @@ export default function CadastrarPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Cadastrar Empresa
-        </h1>
-        <p className="text-gray-600 mb-8">
-          Cadastre uma empresa que oferece oportunidades para profissionais 40+
-        </p>
+      <section className="section">
+        <div className="container">
+          <h2 className="section-title mb-1">Cadastrar Empresa</h2>
+          <p className="text-secondary mb-4">
+            Cadastre uma empresa que oferece oportunidades para profissionais 40+
+          </p>
 
-        <EmpresaForm />
-      </main>
+          <EmpresaForm />
+        </div>
+      </section>
     </div>
   )
 }

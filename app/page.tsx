@@ -29,22 +29,24 @@ async function EmpresasList({ busca }: { busca?: string }) {
   if (error) {
     console.error('Erro ao buscar empresas:', error)
     return (
-      <p className="text-center text-gray-500 py-12">
-        Erro ao carregar empresas. Tente novamente mais tarde.
-      </p>
+      <div className="empty-state">
+        <p className="empty-state-text">
+          Erro ao carregar empresas. Tente novamente mais tarde.
+        </p>
+      </div>
     )
   }
 
   if (!empresas || empresas.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500 text-xl mb-4">
+      <div className="empty-state">
+        <p className="empty-state-text">
           {busca
             ? `Nenhuma empresa encontrada para "${busca}"`
             : 'Nenhuma empresa cadastrada ainda'}
         </p>
         {busca && (
-          <a href="/" className="text-blue-600 hover:text-blue-800">
+          <a href="/" className="btn btn-secondary" style={{ marginTop: '1rem', display: 'inline-flex' }}>
             Ver todas as empresas
           </a>
         )}
@@ -53,7 +55,7 @@ async function EmpresasList({ busca }: { busca?: string }) {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    <div className="cards-grid">
       {(empresas as Empresa[]).map((empresa) => (
         <EmpresaCard key={empresa.id} empresa={empresa} />
       ))}
@@ -68,35 +70,38 @@ export default async function HomePage({ searchParams }: PageProps) {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full">
-        <section className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            SilverGen
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Encontre empresas que valorizam a experiência e contratam
-            profissionais com mais de 40 anos.
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="container">
+          <h1 className="hero-headline">Sua experiência vale muito.</h1>
+          <p className="hero-subtitle">
+            Encontre empresas que valorizam profissionais com mais de 40 anos
+            e descubra novas oportunidades.
           </p>
-        </section>
 
-        <Suspense fallback={<div className="text-center py-4">Carregando...</div>}>
-          <SearchBar />
-        </Suspense>
+          <Suspense fallback={<div className="text-secondary">Carregando...</div>}>
+            <SearchBar />
+          </Suspense>
+        </div>
+      </section>
 
-        <section aria-label="Lista de empresas">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            {busca ? `Resultados para "${busca}"` : 'Empresas Cadastradas'}
+      {/* Companies Section */}
+      <section className="section">
+        <div className="container">
+          <h2 className="section-title">
+            {busca ? `Resultados para "${busca}"` : 'Empresas que Contratam 40+'}
           </h2>
 
-          <Suspense fallback={<div className="text-center py-12">Carregando empresas...</div>}>
+          <Suspense fallback={<div className="empty-state"><p className="empty-state-text">Carregando empresas...</p></div>}>
             <EmpresasList busca={busca} />
           </Suspense>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer className="bg-gray-100 border-t border-gray-200 py-6 mt-auto">
-        <div className="max-w-6xl mx-auto px-4 text-center text-gray-600">
-          <p>SilverGen - Valorizando a experiência profissional</p>
+      {/* Footer */}
+      <footer className="footer mt-auto">
+        <div className="container">
+          <p className="footer-text">Silvergen - Valorizando a experiência profissional</p>
         </div>
       </footer>
     </div>

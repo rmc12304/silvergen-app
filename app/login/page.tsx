@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase'
 
 export default function LoginPage() {
@@ -54,21 +55,31 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-gray-200 py-4 px-4">
-        <Link href="/" className="text-2xl font-bold text-gray-900 no-underline hover:text-blue-600">
-          SilverGen
-        </Link>
+      <header className="header">
+        <div className="container">
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="SilverGen"
+              width={280}
+              height={100}
+              priority
+              unoptimized
+              className="header-logo"
+            />
+          </Link>
+        </div>
       </header>
 
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md">
-          <h1 className="text-3xl font-bold text-center mb-8">
+      <main className="flex-1 flex items-center justify-center" style={{ padding: '3rem 1rem' }}>
+        <div className="card" style={{ width: '100%', maxWidth: '420px' }}>
+          <h2 className="text-center mb-4">
             {isLogin ? 'Entrar' : 'Criar Conta'}
-          </h1>
+          </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block font-medium mb-2">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="email" className="form-label">
                 Email
               </label>
               <input
@@ -77,13 +88,13 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="seu@email.com"
+                className="form-input"
               />
             </div>
 
-            <div>
-              <label htmlFor="password" className="block font-medium mb-2">
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
                 Senha
               </label>
               <input
@@ -93,40 +104,43 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Mínimo 6 caracteres"
+                className="form-input"
               />
             </div>
 
             {error && (
-              <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
+              <div className="alert alert-error">
                 {error}
               </div>
             )}
 
             {message && (
-              <div className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
+              <div className="alert alert-success">
                 {message}
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium text-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%' }}>
               {loading ? 'Aguarde...' : isLogin ? 'Entrar' : 'Criar Conta'}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="text-center" style={{ marginTop: '1.5rem' }}>
             <button
               onClick={() => {
                 setIsLogin(!isLogin)
                 setError('')
                 setMessage('')
               }}
-              className="text-blue-600 hover:text-blue-800 underline"
+              style={{
+                color: 'var(--color-brand-primary)',
+                background: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                fontSize: 'var(--font-size-base)'
+              }}
             >
               {isLogin ? 'Não tem conta? Criar uma' : 'Já tem conta? Entrar'}
             </button>

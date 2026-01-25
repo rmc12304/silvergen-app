@@ -21,14 +21,9 @@ export default function SearchBar() {
     }
   }
 
-  function handleClear() {
-    setQuery('')
-    router.push('/')
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto mb-8">
-      <div className="flex gap-2">
+    <div className="search-container">
+      <form onSubmit={handleSubmit} className="search-form">
         <label htmlFor="search" className="sr-only">
           Buscar empresas
         </label>
@@ -38,24 +33,12 @@ export default function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar por nome ou cidade..."
-          className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="search-input"
         />
-        <button
-          type="submit"
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
-        >
+        <button type="submit" className="search-button">
           Buscar
         </button>
-        {query && (
-          <button
-            type="button"
-            onClick={handleClear}
-            className="px-4 py-3 border border-gray-300 rounded-lg font-medium hover:bg-gray-100"
-          >
-            Limpar
-          </button>
-        )}
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }

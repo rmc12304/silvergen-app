@@ -28,16 +28,16 @@ export default async function AdminPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 max-w-6xl mx-auto px-4 py-8 w-full">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Painel de Administração
-        </h1>
-        <p className="text-gray-600 mb-8">
-          Gerencie os cadastros de empresas pendentes
-        </p>
+      <section className="section">
+        <div className="container">
+          <h2 className="section-title mb-1">Painel de Administração</h2>
+          <p className="text-secondary mb-4">
+            Gerencie os cadastros de empresas pendentes
+          </p>
 
-        <AdminEmpresasList />
-      </main>
+          <AdminEmpresasList />
+        </div>
+      </section>
     </div>
   )
 }
