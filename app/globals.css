@@ -2,7 +2,14 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --secondary: #f3f4f6;
+  --border: #e5e7eb;
+  --success: #16a34a;
+  --warning: #ca8a04;
+  --error: #dc2626;
 }
 
 @theme inline {
@@ -12,15 +19,45 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Acessibilidade: foco visível */
+*:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Botões grandes para melhor acessibilidade */
+button,
+.btn,
+input[type="submit"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Links com bom contraste (apenas links simples sem estilo de botão) */
+a:where(:not([class*="bg-"])) {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+a:where(:not([class*="bg-"])):hover {
+  color: var(--primary-hover);
+}
+
+/* Força texto branco em botões/links com fundo colorido */
+a[class*="bg-blue"],
+a[class*="bg-gray-800"],
+button[class*="bg-blue"],
+button[class*="bg-green"],
+button[class*="bg-red"],
+button[class*="bg-yellow"] {
+  color: white !important;
+  text-decoration: none;
 }
