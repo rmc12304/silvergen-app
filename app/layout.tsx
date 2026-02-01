@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SilverGen - Oportunidades para 40+",
+  title: "Silvergen - Oportunidades para 40+",
   description: "Encontre empresas que valorizam profissionais com mais de 40 anos",
 };
 

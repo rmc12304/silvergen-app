@@ -1,5 +1,5 @@
 -- ===========================================
--- SilverGen - Script de CORREÇÃO
+-- Silvergen - Script de CORREÇÃO
 -- Execute este script se você já rodou o setup anterior
 -- ===========================================
 

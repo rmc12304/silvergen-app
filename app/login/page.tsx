@@ -60,7 +60,7 @@ export default function LoginPage() {
           <Link href="/">
             <Image
               src="/logo.png"
-              alt="SilverGen"
+              alt="Silvergen"
               width={280}
               height={100}
               priority

@@ -1,5 +1,5 @@
 -- ===========================================
--- SilverGen - Script de Setup do Banco de Dados
+-- Silvergen - Script de Setup do Banco de Dados
 -- Execute este script no SQL Editor do Supabase
 -- Dashboard > SQL Editor > New Query
 -- ===========================================
