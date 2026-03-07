@@ -159,3 +159,53 @@ Este documento representa o estado operacional do projeto e deve ser atualizado 
 * decisão técnica relevante
 
 Ele funciona como ponto único de verdade para retomada de contexto em novas sessões de trabalho.
+
+---
+
+## 13. Operational Gates (MVOM)
+
+Estas regras sao obrigatorias para qualquer alteracao conduzida por agente.
+
+### 13.1 Classificacao obrigatoria de mudanca
+
+Toda mudanca deve ser classificada como:
+
+* cosmetic
+* behavioral
+* structural
+* security-sensitive
+
+### 13.2 Gate de revisao humana
+
+Mudancas `structural` e `security-sensitive` exigem revisao humana antes de aplicar.
+
+### 13.3 Gate para schema e RLS
+
+Qualquer alteracao de schema, policy RLS, role, endpoint privilegiado ou uso de `service_role` exige:
+
+* declaracao de impacto
+* classificacao de risco (low/medium/high)
+* registro no `docs/CHANGELOG.md`
+* rollback path explicito
+
+### 13.4 Rollback obrigatorio
+
+Sem rollback path claro, a mudanca nao deve ser aplicada.
+
+### 13.5 Bootstrap de sessao (estado externalizado)
+
+Toda nova sessao de trabalho com agente deve iniciar lendo:
+
+1. `docs/PROJECT_STATE.md`
+2. `docs/CHANGELOG.md`
+3. `docs/SECURITY_MODEL.md`
+
+### 13.6 Limites de autoridade implicita
+
+E proibido para agente assumir implicitamente que pode:
+
+* usar `service_role`
+* executar consultas administrativas sem registro
+* desabilitar RLS temporariamente
+
+Excecoes so sao validas quando descritas explicitamente em `docs/SECURITY_MODEL.md`.
