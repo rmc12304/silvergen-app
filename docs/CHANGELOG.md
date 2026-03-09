@@ -23,3 +23,12 @@ Fonte de verdade para mutacoes estruturais e sensiveis.
 - rollback_path: remover artefatos de governanca adicionados em docs/
 - commit: pending
 - summary: baseline MVOM com gates operacionais e artefatos de controle
+
+- date: 2026-03-08
+- type: RLS
+- risk: high
+- migration_required: yes
+- reversible: yes
+- rollback_path: executar `supabase-security-hardening-rollback.sql`
+- commit: pending
+- summary: hardening de policies para bloquear autoelevacao de admin em `perfis` e forcar `status='pendente'` no insert de `empresas`
